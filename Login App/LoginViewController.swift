@@ -13,7 +13,6 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
-    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var forgotLoginButton: UIButton!
     @IBOutlet weak var forgotPasswordButton: UIButton!
     
@@ -43,20 +42,38 @@ class LoginViewController: UIViewController {
                                       message: message,
                                       preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "OK",
-                                      style: .default,
-                                      handler: nil))
-        
+        let okActionButton = UIAlertAction(title: "OK",
+                                           style: .default,
+                                           handler: nil)
+        alert.addAction(okActionButton)
         self.present(alert, animated: true)
     }
     
     private func checkLogin() {
-        if loginTF.text == "admin" && passwordTF.text == "admin" {
-            
-        } else {
+        if loginTF.text != "admin" || passwordTF.text != "admin" {
             showAlertButtonTapped("Неудачная попытка",
                                   "Неверный логин или пароль, попробуйте снова")
+            passwordTF.text = ""
         }
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == loginTF {
+            textField.resignFirstResponder()
+            passwordTF.becomeFirstResponder()
+        } else if textField == passwordTF {
+            textField.
+        }
+        
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        <#code#>
     }
 }
 

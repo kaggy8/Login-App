@@ -22,12 +22,18 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Login" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OzV-dS-GQw">
                                         <rect key="frame" x="0.0" y="0.0" width="275" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="wJo-Vh-467"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iwx-Xt-3UD">
                                         <rect key="frame" x="0.0" y="67" width="275" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="pEP-cR-UbG"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -37,18 +43,17 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="HSN-bl-hBW"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Вход"/>
                                 <connections>
-                                    <action selector="LoginButtonPresseed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7Vo-vF-bGc"/>
-                                    <action selector="loginButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="1DX-C4-Vlg"/>
-                                    <segue destination="Law-8n-IbW" kind="show" id="tFG-Yt-heB"/>
+                                    <action selector="loginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1UT-Xd-uPD"/>
+                                    <segue destination="Law-8n-IbW" kind="show" id="ngD-hG-Ydu"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="66" translatesAutoresizingMaskIntoConstraints="NO" id="A2m-Rt-Ri9">
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="A2m-Rt-Ri9">
                                 <rect key="frame" x="40.5" y="472" width="333" height="31"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tsk-ax-ziz">
-                                        <rect key="frame" x="0.0" y="0.0" width="133.5" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="154" height="31"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Забыли логин?"/>
                                         <connections>
@@ -56,7 +61,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bB2-Ax-neM">
-                                        <rect key="frame" x="199.5" y="0.0" width="133.5" height="31"/>
+                                        <rect key="frame" x="179" y="0.0" width="154" height="31"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Забыли пароль?"/>
                                         <connections>
@@ -86,7 +91,6 @@
                     <connections>
                         <outlet property="forgotLoginButton" destination="tsk-ax-ziz" id="jy1-ab-Wtx"/>
                         <outlet property="forgotPasswordButton" destination="bB2-Ax-neM" id="auv-Wg-azt"/>
-                        <outlet property="loginButton" destination="U3v-lT-34U" id="60u-Ue-2by"/>
                         <outlet property="loginTF" destination="OzV-dS-GQw" id="ia2-X9-SGL"/>
                         <outlet property="passwordTF" destination="iwx-Xt-3UD" id="8eP-5p-p8R"/>
                     </connections>
