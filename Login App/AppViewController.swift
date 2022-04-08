@@ -8,10 +8,23 @@
 import UIKit
 
 class AppViewController: UIViewController {
-
+    
+    // MARK: - IBOutlets
+    
+    @IBOutlet weak var helloLabel: UILabel!
+    
+    // MARK: - Public properties
+    
+    var nameUser = ""
+    var login = ""
+    var password = ""
+    
+    // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.navigationItem.setHidesBackButton(true, animated: false)
+        
+        helloLabel.text = "Привет,  \(nameUser)!"
     }
 }

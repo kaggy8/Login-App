@@ -13,12 +13,29 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var forgotLoginButton: UIButton!
     @IBOutlet weak var forgotPasswordButton: UIButton!
+   
+    // MARK: - Override Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
+        self.navigationItem.setHidesBackButton(true, animated: false)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? AppViewController else {
+            return
+        }
+        
+        destination.nameUser = "\(loginTF.text ?? "гость")"
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     // MARK: - IBActions
@@ -28,21 +45,34 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func forgotLoginPressed() {
-        showAlertButtonTapped("Логин", "admin")
+        showAlertButtonTapped(titleAlert: "Логин",
+                              message: "admin",
+                              titleAction: "ОК")
     }
     
     @IBAction func forgotPasswordPressed() {
-        showAlertButtonTapped("Пароль", "admin")
+        showAlertButtonTapped(titleAlert: "Пароль",
+                              message: "admin",
+                              titleAction: "ОК")
+    }
+    
+    @IBAction func unwind(for unwindSegue: UIStoryboardSegue) {
+        guard let source = unwindSegue.source as? AppViewController else {
+            return
+        }
+        
+        loginTF.text = source.login
+        passwordTF.text = source.password
     }
     
     // MARK: - Private methods
     
-    private func showAlertButtonTapped(_ title: String, _ message: String) {
-        let alert = UIAlertController(title: title,
+    private func showAlertButtonTapped( titleAlert: String, message: String, titleAction: String) {
+        let alert = UIAlertController(title: titleAlert,
                                       message: message,
                                       preferredStyle: .alert)
         
-        let okActionButton = UIAlertAction(title: "OK",
+        let okActionButton = UIAlertAction(title: titleAction,
                                            style: .default,
                                            handler: nil)
         alert.addAction(okActionButton)
@@ -51,10 +81,15 @@ class LoginViewController: UIViewController {
     
     private func checkLogin() {
         if loginTF.text != "admin" || passwordTF.text != "admin" {
-            showAlertButtonTapped("Неудачная попытка",
-                                  "Неверный логин или пароль, попробуйте снова")
+            showAlertButtonTapped(titleAlert: "Неудачная попытка",
+                                  message: "Попробуйте снова!",
+                                  titleAction: "ОК")
             passwordTF.text = ""
         }
+    }
+    
+    private func tapInLogin() {
+        self.loginButton.sendActions(for: .touchUpInside)
     }
 }
 
@@ -66,14 +101,10 @@ extension LoginViewController: UITextFieldDelegate {
             textField.resignFirstResponder()
             passwordTF.becomeFirstResponder()
         } else if textField == passwordTF {
-            textField.
+            textField.resignFirstResponder()
+            self.tapInLogin()
         }
-        
         return true
-    }
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        <#code#>
     }
 }
 
