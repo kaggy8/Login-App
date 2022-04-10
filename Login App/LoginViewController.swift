@@ -17,31 +17,34 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var forgotLoginButton: UIButton!
     @IBOutlet weak var forgotPasswordButton: UIButton!
    
-    // MARK: - Override Methods
+    // MARK: - Private Properties
+    private var login = "admin"
+    private var password = "admin"
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-       
-        self.navigationItem.setHidesBackButton(true, animated: false)
-    }
+    // MARK: - Override Methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destination = segue.destination as? AppViewController else {
             return
         }
-        
-        destination.nameUser = "\(loginTF.text ?? "гость")"
-        
+    
+        destination.nameUser = loginTF.text ?? "гость"
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
     }
     
     // MARK: - IBActions
     
     @IBAction func loginButtonPressed(_ sender: UIButton!) {
-        checkLogin()
+        if loginTF.text != login || passwordTF.text != password {
+            showAlertButtonTapped(titleAlert: "Неудачная попытка",
+                                  message: "Неверный логин или пароль, попробуйте снова!",
+                                  titleAction: "ОК")
+            passwordTF.text = ""
+        }
     }
     
     @IBAction func forgotLoginPressed() {
@@ -57,12 +60,9 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func unwind(for unwindSegue: UIStoryboardSegue) {
-        guard let source = unwindSegue.source as? AppViewController else {
-            return
-        }
-        
-        loginTF.text = source.login
-        passwordTF.text = source.password
+        _ = unwindSegue.source
+        loginTF.text = ""
+        passwordTF.text = ""
     }
     
     // MARK: - Private methods
@@ -78,18 +78,9 @@ class LoginViewController: UIViewController {
         alert.addAction(okActionButton)
         self.present(alert, animated: true)
     }
-    
-    private func checkLogin() {
-        if loginTF.text != "admin" || passwordTF.text != "admin" {
-            showAlertButtonTapped(titleAlert: "Неудачная попытка",
-                                  message: "Попробуйте снова!",
-                                  titleAction: "ОК")
-            passwordTF.text = ""
-        }
-    }
-    
+     
     private func tapInLogin() {
-        self.loginButton.sendActions(for: .touchUpInside)
+        loginButton.sendActions(for: .touchUpInside)
     }
 }
 
@@ -98,11 +89,9 @@ class LoginViewController: UIViewController {
 extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == loginTF {
-            textField.resignFirstResponder()
             passwordTF.becomeFirstResponder()
         } else if textField == passwordTF {
-            textField.resignFirstResponder()
-            self.tapInLogin()
+            tapInLogin()
         }
         return true
     }

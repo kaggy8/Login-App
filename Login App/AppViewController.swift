@@ -16,8 +16,6 @@ class AppViewController: UIViewController {
     // MARK: - Public properties
     
     var nameUser = ""
-    var login = ""
-    var password = ""
     
     // MARK: - Override methods
     override func viewDidLoad() {
