@@ -93,8 +93,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="h7U-cS-st2"/>
                     <connections>
-                        <outlet property="forgotLoginButton" destination="tsk-ax-ziz" id="jy1-ab-Wtx"/>
-                        <outlet property="forgotPasswordButton" destination="bB2-Ax-neM" id="auv-Wg-azt"/>
                         <outlet property="loginButton" destination="U3v-lT-34U" id="6b1-sl-uFy"/>
                         <outlet property="loginTF" destination="OzV-dS-GQw" id="ia2-X9-SGL"/>
                         <outlet property="passwordTF" destination="iwx-Xt-3UD" id="8eP-5p-p8R"/>

@@ -14,8 +14,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var forgotLoginButton: UIButton!
-    @IBOutlet weak var forgotPasswordButton: UIButton!
    
     // MARK: - Private Properties
     private var login = "admin"
@@ -60,7 +58,6 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func unwind(for unwindSegue: UIStoryboardSegue) {
-        _ = unwindSegue.source
         loginTF.text = ""
         passwordTF.text = ""
     }
