@@ -8,36 +8,34 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
-    // MARK: - IBOutlets
     
+    // MARK: - IBOutlets
     @IBOutlet weak var loginTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-   
+    
     // MARK: - Private Properties
-    private var login = "admin"
-    private var password = "admin"
+    private let user = User.getUsers()
     
-    // MARK: - Override Methods
-    
+    // MARK: - Navigations
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let destination = segue.destination as? AppViewController else {
-            return
+        let tabBarController = segue.destination as! UITabBarController
+        
+        for viewController in tabBarController.viewControllers! {
+            if let welcomeVC = viewController as? AppViewController {
+                welcomeVC.nameUser = user.person.fullName
+            } else if let aboutVC = viewController as? AboutMeViewController {
+                aboutVC.name = user.person.fullName
+            } else if let navigationVC = viewController as? UINavigationController {
+                let hopesVC = navigationVC.topViewController as! HopesViewController
+                hopesVC.name = user.person.fullName
+            }
         }
-    
-        destination.nameUser = loginTF.text ?? "гость"
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        view.endEditing(true)
     }
     
     // MARK: - IBActions
-    
     @IBAction func loginButtonPressed(_ sender: UIButton!) {
-        if loginTF.text != login || passwordTF.text != password {
+        if loginTF.text != user.login || passwordTF.text != user.password {
             showAlertButtonTapped(titleAlert: "Неудачная попытка",
                                   message: "Неверный логин или пароль, попробуйте снова!",
                                   titleAction: "ОК")
@@ -61,10 +59,11 @@ class LoginViewController: UIViewController {
         loginTF.text = ""
         passwordTF.text = ""
     }
-    
-    // MARK: - Private methods
-    
-    private func showAlertButtonTapped( titleAlert: String, message: String, titleAction: String) {
+}
+
+// MARK: - Private methods
+extension LoginViewController {
+    private func showAlertButtonTapped(titleAlert: String, message: String, titleAction: String) {
         let alert = UIAlertController(title: titleAlert,
                                       message: message,
                                       preferredStyle: .alert)
@@ -73,17 +72,21 @@ class LoginViewController: UIViewController {
                                            style: .default,
                                            handler: nil)
         alert.addAction(okActionButton)
-        self.present(alert, animated: true)
+        present(alert, animated: true)
     }
-     
+    
     private func tapInLogin() {
         loginButton.sendActions(for: .touchUpInside)
     }
 }
 
 // MARK: - UITextFieldDelegate
-
 extension LoginViewController: UITextFieldDelegate {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == loginTF {
             passwordTF.becomeFirstResponder()
