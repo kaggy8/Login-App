@@ -13,12 +13,12 @@ class HopesViewController: UIViewController {
     @IBOutlet weak var hopesLabel: UILabel!
     
     // MARK: - Public properties
-    var name = ""
+    var name: User!
     
     // MARK: - life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        hopesLabel.text = "Штож \(name). Здесь могло быть что-то интересное, но я сделал просто чтобы передать имя через NavigationController."
+        hopesLabel.text = "Штож \(name.person.fullName). Здесь могло быть что-то интересное, но я сделал просто чтобы передать имя через NavigationController."
     }
 
 }

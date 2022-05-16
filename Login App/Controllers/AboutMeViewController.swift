@@ -12,12 +12,12 @@ class AboutMeViewController: UIViewController {
     @IBOutlet weak var aboutMeLabel: UILabel!
     
     // MARK: - Public properties
-    var name: String = ""
+    var name: User!
     
     // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        aboutMeLabel.text = "Привет, \(name). Меня зовут Станислав! Мне 26 лет. Живу в городе Шахты Ростовской области. Не очень творческий человек xD (для меня это задание очень сложное). "
+        aboutMeLabel.text = "Привет, \(name.person.fullName). Меня зовут Станислав! Мне 26 лет. Живу в городе Шахты Ростовской области. Не очень творческий человек xD (для меня это задание очень сложное). "
     }
 }

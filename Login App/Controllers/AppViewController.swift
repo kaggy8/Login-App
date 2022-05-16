@@ -15,14 +15,13 @@ class AppViewController: UIViewController {
     
     // MARK: - Public properties
     
-    var nameUser = ""
+    var nameUser: User!
     
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.setHidesBackButton(true, animated: false)
-        
-        helloLabel.text = "Привет,  \(nameUser)!"
+        navigationItem.setHidesBackButton(true, animated: false)
+        helloLabel.text = "Привет,  \(nameUser.person.fullName)!"
     }
 }

@@ -13,8 +13,8 @@ struct User {
     static func getUsers() -> User {
         User(login: "admin",
              password: "admin",
-             person: Person(fullName: "Rasta")
-        )}
+             person: Person(fullName: "Rasta"))
+    }
 }
 
 struct Person {

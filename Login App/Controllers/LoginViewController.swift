@@ -23,12 +23,12 @@ class LoginViewController: UIViewController {
         
         for viewController in tabBarController.viewControllers! {
             if let welcomeVC = viewController as? AppViewController {
-                welcomeVC.nameUser = user.person.fullName
+                welcomeVC.nameUser = user
             } else if let aboutVC = viewController as? AboutMeViewController {
-                aboutVC.name = user.person.fullName
+                aboutVC.name = user
             } else if let navigationVC = viewController as? UINavigationController {
                 let hopesVC = navigationVC.topViewController as! HopesViewController
-                hopesVC.name = user.person.fullName
+                hopesVC.name = user
             }
         }
     }
